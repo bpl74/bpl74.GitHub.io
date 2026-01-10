@@ -1,0 +1,28 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Serve site (Python 8000)",
+      "type": "shell",
+      "command": "python3 -m http.server 8000",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Open preview in browser",
+      "type": "shell",
+      "command": "open http://localhost:8000/",
+      "dependsOn": "Serve site (Python 8000)",
+      "problemMatcher": []
+    },
+    {
+      "label": "Stop server on port 8000",
+      "type": "shell",
+      "command": "lsof -ti:8000 | xargs -r kill",
+      "problemMatcher": []
+    }
+  ]
+}
