@@ -23,6 +23,20 @@
       "type": "shell",
       "command": "lsof -ti:8000 | xargs -r kill",
       "problemMatcher": []
+    },
+    {
+      "label": "Validate HTML (basic)",
+      "type": "shell",
+      "command": "python3 scripts/validate_html.py index.html",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Check broken local links",
+      "type": "shell",
+      "command": "python3 scripts/check_links.py --root .",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
     }
   ]
 }
