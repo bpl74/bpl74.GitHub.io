@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "==> Pre-push checks starting..."
+
+echo "==> Validating HTML (basic)..."
+python3 scripts/validate_html.py index.html
+
+echo "==> Checking broken local links..."
+python3 scripts/check_links.py --root .
+
+echo "✅ Pre-push checks passed. Proceeding with push."
