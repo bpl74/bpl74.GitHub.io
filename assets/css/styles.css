@@ -491,6 +491,197 @@ p{ margin: 0 0 14px 0; font-size: var(--body); }
 
 .hero .img-placeholder{ aspect-ratio: 4 / 3; }
 
+/* =========================
+   MySightWordz page (additive styling)
+   ========================= */
+
+.page-sightwordz{
+  --accent: #6b5bff; /* playful purple accent for this page */
+  --tint-1: rgba(107, 91, 255, .12);
+  --tint-2: rgba(26, 166, 183, .10);
+}
+
+/* Hero variant */
+.hero-sightwordz .eyebrow-play{
+  background: rgba(255,255,255,.85);
+  border-color: rgba(107, 91, 255, .25);
+}
+
+.hero-grid-app{
+  align-items: center;
+}
+
+.app-hero-media .media-caption{
+  margin-top: 14px;
+}
+
+/* Chips */
+.chips{
+  display:flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.chip{
+  display:inline-flex;
+  align-items:center;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: rgba(255,255,255,.80);
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* Callout */
+.callout{
+  margin-top: 18px;
+  padding: 14px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,.08);
+  background:
+    radial-gradient(600px 220px at 15% 15%, rgba(107, 91, 255, .18), transparent 60%),
+    radial-gradient(520px 220px at 85% 20%, rgba(26,166,183,.14), transparent 60%),
+    rgba(255,255,255,.78);
+}
+
+.callout-title{
+  margin: 0 0 6px 0;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.callout-body{
+  margin: 0;
+  color: var(--muted);
+}
+
+/* Placeholders (div-based to avoid broken-link hook failures) */
+.img-placeholder{
+  width: 100%;
+  border-radius: 18px;
+  border: 1px dashed rgba(0,0,0,.18);
+  background:
+    radial-gradient(600px 220px at 20% 10%, rgba(255,255,255,.75), transparent 55%),
+    linear-gradient(180deg, rgba(255,255,255,.70), rgba(255,255,255,.35));
+}
+
+.img-placeholder-app{
+  aspect-ratio: 4 / 3;
+  border-radius: 26px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.10);
+  border-style: solid;
+  border-color: rgba(0,0,0,.10);
+}
+
+.img-placeholder-shot{
+  aspect-ratio: 9 / 16;
+}
+
+/* Screenshots grid */
+.shots{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.shot{
+  background: rgba(255,255,255,.80);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 18px;
+  padding: 12px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.02);
+}
+
+.shot-caption{
+  margin: 10px 0 0 0;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* Steps */
+.steps{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.step{
+  background: rgba(255,255,255,.78);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.step-num{
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight: 900;
+  background: rgba(107, 91, 255, .14);
+  border: 1px solid rgba(107, 91, 255, .25);
+  margin-bottom: 10px;
+}
+
+.step-body h3{ margin-bottom: 6px; }
+.step-body p{ margin: 0; color: var(--muted); }
+
+/* Privacy grid */
+.privacy-grid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.privacy-card{
+  background: rgba(255,255,255,.78);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 18px;
+  padding: 16px;
+}
+.privacy-card p{ color: var(--muted); margin: 0; }
+
+/* FAQ */
+.faq{
+  max-width: 760px;
+}
+
+.faq-item{
+  background: rgba(255,255,255,.80);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 16px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.faq-item summary{
+  cursor: pointer;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+.faq-item p{
+  margin: 10px 0 0 0;
+  color: var(--muted);
+}
+
+/* Responsive */
+@media (max-width: 920px){
+  .shots{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .steps{ grid-template-columns: 1fr; }
+  .privacy-grid{ grid-template-columns: 1fr; }
+}
+@media (max-width: 520px){
+  .shots{ grid-template-columns: 1fr; }
+}
+
+
+
+
+
 /* NEW: subtle entrance animation (respects reduced motion) */
 @media (prefers-reduced-motion: no-preference){
   .hero-copy, .hero-media{
