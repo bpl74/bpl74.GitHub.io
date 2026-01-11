@@ -480,6 +480,17 @@ p{ margin: 0 0 14px 0; font-size: var(--body); }
   font-size: 0.95rem;
 }
 
+/* Setting up Image Placeholders */
+.img-placeholder{
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 18px;
+  border: 1px dashed rgba(0,0,0,.18);
+  background: linear-gradient(180deg, rgba(255,255,255,.7), rgba(255,255,255,.35));
+}
+
+.hero .img-placeholder{ aspect-ratio: 4 / 3; }
+
 /* NEW: subtle entrance animation (respects reduced motion) */
 @media (prefers-reduced-motion: no-preference){
   .hero-copy, .hero-media{
