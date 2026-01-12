@@ -592,6 +592,11 @@ p{ margin: 0 0 14px 0; font-size: var(--body); }
   border-radius: 18px;
   padding: 12px;
   box-shadow: 0 1px 0 rgba(0,0,0,.02);
+  overflow: hidden;
+}
+
+.shot img{
+  border-radius: 14px;
 }
 
 .shot-caption{
@@ -679,9 +684,6 @@ p{ margin: 0 0 14px 0; font-size: var(--body); }
 }
 
 
-
-
-
 /* NEW: subtle entrance animation (respects reduced motion) */
 @media (prefers-reduced-motion: no-preference){
   .hero-copy, .hero-media{
@@ -712,4 +714,53 @@ p{ margin: 0 0 14px 0; font-size: var(--body); }
   .section{
     padding: 56px 0;
   }
+
+  /* =========================
+   Generic announcement / coming-soon page
+   ========================= */
+
+.page-announcement{
+  --accent: #1aa6b7; /* keep core brand accent */
+}
+
+.hero-grid-single{
+  grid-template-columns: 1.2fr .8fr;
+  align-items: center;
+}
+
+.img-placeholder-neutral{
+  aspect-ratio: 4 / 3;
+  border-radius: 26px;
+  border: 1px dashed rgba(0,0,0,.16);
+  background:
+    radial-gradient(600px 260px at 20% 20%, rgba(26,166,183,.20), transparent 60%),
+    radial-gradient(520px 240px at 85% 30%, rgba(0,0,0,.06), transparent 55%),
+    rgba(255,255,255,.75);
+  box-shadow: 0 18px 50px rgba(0,0,0,.08);
+}
+
+/* Slightly quieter hero tone */
+.hero-announcement .lead{
+  max-width: 60ch;
+}
+
+@media (max-width: 920px){
+  .hero-grid-single{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   Privacy page tweaks
+   ========================= */
+
+.page-privacy .lead{
+  max-width: 65ch;
+}
+
+.page-privacy .prose h3{
+  margin-top: 18px;
+}
+
+
 }
