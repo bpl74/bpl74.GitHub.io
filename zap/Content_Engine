@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/zapier-chatgpt-sightwordz-post.schema.json",
+  "title": "Zapier ChatGPT Structured Output - SightWordz Post",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["app", "pillar", "format", "posts"],
+  "properties": {
+    "app": {
+      "type": "string",
+      "description": "App identifier. Keep flexible to reduce model failures, but default should be 'sightwordz'.",
+      "default": "sightwordz",
+      "minLength": 1
+    },
+    "pillar": {
+      "type": "string",
+      "description": "Content pillar/category. Keep as free-form string for reliability.",
+      "default": "",
+      "minLength": 0
+    },
+    "format": {
+      "type": "string",
+      "description": "Format label (e.g., 'reel', 'carousel', 'static', 'thread'). Free-form for reliability.",
+      "default": "",
+      "minLength": 0
+    },
+    "posts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["instagram", "x", "facebook"],
+      "properties": {
+        "instagram": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["hook", "caption", "hashtags", "cta", "reel_script"],
+          "properties": {
+            "hook": {
+              "type": "string",
+              "description": "First line / hook. Allow empty to avoid zap failures; downstream can reject if needed.",
+              "default": ""
+            },
+            "caption": {
+              "type": "string",
+              "description": "IG caption. Allow empty.",
+              "default": ""
+            },
+            "hashtags": {
+              "description": "Hashtags. Accept either an array of strings or a single string (common LLM variability).",
+              "default": [],
+              "oneOf": [
+                {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "cta": {
+              "type": "string",
+              "description": "Call to action. Keep as a string (no const) to avoid strict validation failures.",
+              "default": "Download SightWordz on the App Store"
+            },
+            "reel_script": {
+              "type": "string",
+              "description": "Short reel script. Allow empty.",
+              "default": ""
+            }
+          }
+        },
+        "x": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["text"],
+          "properties": {
+            "text": {
+              "type": "string",
+              "description": "X post text. Do not hard-enforce 280 chars; models may exceed slightly.",
+              "default": ""
+            }
+          }
+        },
+        "facebook": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["text"],
+          "properties": {
+            "text": {
+              "type": "string",
+              "description": "Facebook post text.",
+              "default": ""
+            }
+          }
+        }
+      }
+    }
+  }
+}
