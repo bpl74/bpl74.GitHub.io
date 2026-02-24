@@ -1,13 +1,23 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Zapier ChatGPT Structured Output - SightWordz Post",
+  "$id": "https://www.bpl74.com/zap/content-engine-post.schema.json",
+  "title": "SightWordz Content Engine Output",
   "type": "object",
   "additionalProperties": false,
   "required": ["app", "pillar", "format", "posts"],
   "properties": {
-    "app": { "type": "string" },
-    "pillar": { "type": "string" },
-    "format": { "type": "string" },
+    "app": {
+      "type": "string",
+      "enum": ["sightwordz"]
+    },
+    "pillar": {
+      "type": "string",
+      "enum": ["Problem→Relief", "Routine Builder", "Feature→Job", "Proof Lite"]
+    },
+    "format": {
+      "type": "string",
+      "enum": ["Reel", "Carousel", "Static"]
+    },
     "posts": {
       "type": "object",
       "additionalProperties": false,
@@ -18,17 +28,32 @@
           "additionalProperties": false,
           "required": ["hook", "caption", "hashtags", "cta", "reel_script"],
           "properties": {
-            "hook": { "type": "string" },
-            "caption": { "type": "string" },
-            "hashtags": {
+            "hook": {
               "type": "string",
-              "description": "Space-separated hashtags, e.g. \"#reading #kids #sightwords\""
+              "minLength": 5
+            },
+            "caption": {
+              "type": "string",
+              "minLength": 20
+            },
+            "hashtags": {
+              "type": "array",
+              "minItems": 5,
+              "maxItems": 8,
+              "items": {
+                "type": "string",
+                "pattern": "^#[A-Za-z0-9_]+$"
+              }
             },
             "cta": {
               "type": "string",
+              "minLength": 5,
               "default": "Download SightWordz on the App Store"
             },
-            "reel_script": { "type": "string" }
+            "reel_script": {
+              "type": "string",
+              "minLength": 20
+            }
           }
         },
         "x": {
@@ -36,7 +61,10 @@
           "additionalProperties": false,
           "required": ["text"],
           "properties": {
-            "text": { "type": "string" }
+            "text": {
+              "type": "string",
+              "minLength": 10
+            }
           }
         },
         "facebook": {
@@ -44,7 +72,10 @@
           "additionalProperties": false,
           "required": ["text"],
           "properties": {
-            "text": { "type": "string" }
+            "text": {
+              "type": "string",
+              "minLength": 20
+            }
           }
         }
       }

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.bpl74.com/zap/orchestrator-plan.schema.json",
+  "title": "Orchestrator Weekly Plan (SightWordz)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "week_of",
+    "app",
+    "distribution",
+    "content_plan",
+    "aso_suggestion",
+    "weekly_experiment_hypothesis"
+  ],
+  "properties": {
+    "week_of": {
+      "type": "string",
+      "description": "Start date (Monday) of the plan week in YYYY-MM-DD format",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "app": {
+      "type": "string",
+      "description": "App slug",
+      "enum": ["sightwordz"]
+    },
+    "distribution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total_posts", "reels", "static_or_carousel"],
+      "properties": {
+        "total_posts": {
+          "type": "integer",
+          "const": 3
+        },
+        "reels": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "static_or_carousel": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2
+        }
+      }
+    },
+    "content_plan": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["pillar", "idea_title", "hook_angle", "format", "asset_notes", "experiment_tag"],
+        "properties": {
+          "pillar": {
+            "type": "string",
+            "enum": ["Problem→Relief", "Routine Builder", "Feature→Job", "Proof Lite"]
+          },
+          "idea_title": {
+            "type": "string",
+            "minLength": 3
+          },
+          "hook_angle": {
+            "type": "string",
+            "minLength": 5
+          },
+          "format": {
+            "type": "string",
+            "enum": ["Reel", "Carousel", "Static", "Thread", "FB Long"]
+          },
+          "asset_notes": {
+            "type": "string"
+          },
+          "experiment_tag": {
+            "type": "string",
+            "minLength": 2
+          }
+        }
+      }
+    },
+    "aso_suggestion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["subtitle_revision", "keyword_focus", "screenshot_headline_test"],
+      "properties": {
+        "subtitle_revision": { "type": "string" },
+        "keyword_focus": { "type": "string" },
+        "screenshot_headline_test": { "type": "string" }
+      }
+    },
+    "weekly_experiment_hypothesis": {
+      "type": "string",
+      "minLength": 5
+    }
+  }
+}
