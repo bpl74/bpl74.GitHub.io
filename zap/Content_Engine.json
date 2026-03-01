@@ -12,7 +12,7 @@
     },
     "pillar": {
       "type": "string",
-      "enum": ["Problem→Relief", "Routine Builder", "Feature→Job", "Proof Lite"]
+      "enum": ["Problem > Relief", "Routine Builder", "Feature > Job", "Proof Lite"]
     },
     "format": {
       "type": "string",
