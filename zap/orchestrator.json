@@ -55,7 +55,7 @@
         "properties": {
           "pillar": {
             "type": "string",
-            "enum": ["Problem→Relief", "Routine Builder", "Feature→Job", "Proof Lite"]
+            "enum": ["Problem Relief", "Routine Builder", "Feature Job", "Proof Lite"]
           },
           "idea_title": {
             "type": "string",
