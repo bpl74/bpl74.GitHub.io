@@ -13,7 +13,6 @@
       --surface: #181818;
       --border: #2a2a2a;
       --accent: #c8a96e;
-      --accent-dim: rgba(200, 169, 110, 0.12);
       --text: #e8e2d9;
       --text-muted: #6b6560;
       --mono: 'DM Mono', monospace;
@@ -34,9 +33,7 @@
       justify-content: center;
       min-height: 100vh;
       padding: 2rem;
-      background:
-        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(200,169,110,0.07) 0%, transparent 70%),
-        var(--bg);
+      background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(200,169,110,0.07) 0%, transparent 70%), var(--bg);
     }
 
     .login-box {
@@ -55,33 +52,10 @@
       background: linear-gradient(90deg, transparent, var(--accent), transparent);
     }
 
-    .login-logo {
-      font-family: var(--serif);
-      font-size: 1.8rem;
-      color: var(--accent);
-      margin-bottom: 0.25rem;
-    }
-
-    .login-sub {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 2.5rem;
-    }
-
-    .field-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
-      display: block;
-    }
-
-    .field-group {
-      margin-bottom: 1.25rem;
-    }
+    .login-logo { font-family: var(--serif); font-size: 1.8rem; color: var(--accent); margin-bottom: 0.25rem; }
+    .login-sub { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 2.5rem; }
+    .field-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; display: block; }
+    .field-group { margin-bottom: 1.25rem; }
 
     input[type="password"] {
       width: 100%;
@@ -94,10 +68,7 @@
       outline: none;
       transition: border-color 0.2s;
     }
-
-    input[type="password"]:focus {
-      border-color: var(--accent);
-    }
+    input[type="password"]:focus { border-color: var(--accent); }
 
     .btn {
       width: 100%;
@@ -114,15 +85,9 @@
       transition: opacity 0.2s;
       margin-top: 0.5rem;
     }
-
     .btn:hover { opacity: 0.85; }
 
-    .login-error {
-      font-size: 0.75rem;
-      color: #e07070;
-      margin-top: 0.75rem;
-      display: none;
-    }
+    .login-error { font-size: 0.75rem; color: #e07070; margin-top: 0.75rem; display: none; }
 
     /* ── ADMIN ── */
     #admin-screen { display: none; }
@@ -140,39 +105,12 @@
       z-index: 10;
     }
 
-    .header-left {
-      display: flex;
-      align-items: baseline;
-      gap: 1rem;
-    }
-
-    .header-title {
-      font-family: var(--serif);
-      font-size: 1.3rem;
-      color: var(--accent);
-    }
-
-    .header-table {
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .record-count {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-    }
-
-    .record-count span {
-      color: var(--accent);
-    }
+    .header-left { display: flex; align-items: baseline; gap: 1rem; }
+    .header-title { font-family: var(--serif); font-size: 1.3rem; color: var(--accent); }
+    .header-table { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); }
+    .header-right { display: flex; align-items: center; gap: 1.5rem; }
+    .record-count { font-size: 0.7rem; color: var(--text-muted); }
+    .record-count span { color: var(--accent); }
 
     .btn-sm {
       background: transparent;
@@ -186,17 +124,9 @@
       cursor: pointer;
       transition: all 0.2s;
     }
+    .btn-sm:hover { border-color: var(--accent); color: var(--accent); }
 
-    .btn-sm:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    main {
-      padding: 2rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
+    main { padding: 2rem; max-width: 1400px; margin: 0 auto; }
 
     /* ── CARDS ── */
     .grid {
@@ -211,11 +141,17 @@
       padding: 1.5rem;
       position: relative;
       animation: fadeUp 0.4s ease both;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      color: inherit;
     }
 
     .card:hover {
-      border-color: rgba(200,169,110,0.3);
+      border-color: rgba(200,169,110,0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
     }
 
     .card::after {
@@ -227,8 +163,16 @@
       opacity: 0;
       transition: opacity 0.2s;
     }
-
     .card:hover::after { opacity: 1; }
+
+    .card-arrow {
+      position: absolute;
+      top: 1.25rem; right: 1.25rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      transition: color 0.2s, transform 0.2s;
+    }
+    .card:hover .card-arrow { color: var(--accent); transform: translateX(3px); }
 
     .card-id {
       font-size: 0.6rem;
@@ -237,33 +181,14 @@
       margin-bottom: 1rem;
       padding-bottom: 0.75rem;
       border-bottom: 1px solid var(--border);
+      padding-right: 1.5rem;
     }
 
-    .field-row {
-      margin-bottom: 0.85rem;
-    }
+    .field-row { margin-bottom: 0.85rem; }
+    .field-key { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.2rem; }
+    .field-val { font-size: 0.82rem; color: var(--text); line-height: 1.5; word-break: break-word; }
 
-    .field-key {
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.2rem;
-    }
-
-    .field-val {
-      font-size: 0.82rem;
-      color: var(--text);
-      line-height: 1.5;
-      word-break: break-word;
-    }
-
-    .field-val.long {
-      max-height: 80px;
-      overflow: hidden;
-      position: relative;
-    }
-
+    .field-val.long { max-height: 80px; overflow: hidden; position: relative; }
     .field-val.long::after {
       content: '';
       position: absolute;
@@ -273,13 +198,7 @@
     }
 
     /* ── STATES ── */
-    .state-msg {
-      text-align: center;
-      padding: 4rem 2rem;
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      letter-spacing: 0.1em;
-    }
+    .state-msg { text-align: center; padding: 4rem 2rem; color: var(--text-muted); font-size: 0.8rem; letter-spacing: 0.1em; }
 
     .loading-dots::after {
       content: '...';
@@ -298,7 +217,6 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* stagger cards */
     .card:nth-child(1)  { animation-delay: 0.05s; }
     .card:nth-child(2)  { animation-delay: 0.10s; }
     .card:nth-child(3)  { animation-delay: 0.15s; }
@@ -349,52 +267,58 @@
   // ── CONFIG ──────────────────────────────────────────────
   const WORKER_URL = 'https://combpl74.jmirando.workers.dev';
   const TABLE_NAME = 'Posts';
+  // Fields shown on card previews (in order), rest follow
+  const PREVIEW_FIELDS = ['app', 'format', 'pilar', 'Approval Status'];
   // ────────────────────────────────────────────────────────
 
   let adminPassword = '';
 
-  // Login
+  // Restore session if returning from detail page
+  const savedPw = sessionStorage.getItem('adminPassword');
+  if (savedPw) {
+    adminPassword = savedPw;
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-screen').style.display = 'block';
+    loadRecords();
+  }
+
   document.getElementById('login-btn').addEventListener('click', attemptLogin);
-  document.getElementById('pw-input').addEventListener('keydown', e => {
-    if (e.key === 'Enter') attemptLogin();
-  });
+  document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') attemptLogin(); });
 
   async function attemptLogin() {
     const pw = document.getElementById('pw-input').value.trim();
     if (!pw) return;
-
     adminPassword = pw;
-
-    // Test the password by making a real request
     const records = await fetchRecords();
     if (records === null) {
       document.getElementById('login-error').style.display = 'block';
       adminPassword = '';
     } else {
+      sessionStorage.setItem('adminPassword', adminPassword);
       document.getElementById('login-screen').style.display = 'none';
       document.getElementById('admin-screen').style.display = 'block';
       renderCards(records);
     }
   }
 
-  // Logout
   document.getElementById('logout-btn').addEventListener('click', () => {
     adminPassword = '';
+    sessionStorage.removeItem('adminPassword');
     document.getElementById('pw-input').value = '';
     document.getElementById('login-error').style.display = 'none';
     document.getElementById('admin-screen').style.display = 'none';
     document.getElementById('login-screen').style.display = 'flex';
   });
 
-  // Refresh
-  document.getElementById('refresh-btn').addEventListener('click', async () => {
+  document.getElementById('refresh-btn').addEventListener('click', loadRecords);
+
+  async function loadRecords() {
     document.getElementById('content').innerHTML =
       '<div class="state-msg"><span class="loading-dots">Loading</span></div>';
     const records = await fetchRecords();
     if (records) renderCards(records);
-  });
+  }
 
-  // Fetch from Worker
   async function fetchRecords() {
     try {
       const res = await fetch(`${WORKER_URL}?table=${encodeURIComponent(TABLE_NAME)}`, {
@@ -404,16 +328,18 @@
       const data = await res.json();
       if (data.error) return null;
       return data.records || [];
-    } catch (e) {
-      return null;
-    }
+    } catch (e) { return null; }
   }
 
-  // Render cards
-  function renderCards(records) {
-    const countEl = document.getElementById('record-count');
-    countEl.innerHTML = `<span>${records.length}</span> records`;
+  function formatValue(val) {
+    if (val === null || val === undefined || val === '') return '—';
+    if (Array.isArray(val)) return val.join(', ');
+    if (typeof val === 'object') return JSON.stringify(val);
+    return String(val);
+  }
 
+  function renderCards(records) {
+    document.getElementById('record-count').innerHTML = `<span>${records.length}</span> records`;
     const content = document.getElementById('content');
 
     if (records.length === 0) {
@@ -425,8 +351,14 @@
     grid.className = 'grid';
 
     records.forEach(record => {
-      const card = document.createElement('div');
+      const card = document.createElement('a');
       card.className = 'card';
+      card.href = `detail.html?id=${record.id}`;
+
+      const arrow = document.createElement('span');
+      arrow.className = 'card-arrow';
+      arrow.textContent = '→';
+      card.appendChild(arrow);
 
       const idRow = document.createElement('div');
       idRow.className = 'card-id';
@@ -434,7 +366,15 @@
       card.appendChild(idRow);
 
       const fields = record.fields || {};
-      Object.entries(fields).forEach(([key, val]) => {
+
+      // Show preview fields first, then the rest
+      const orderedKeys = [
+        ...PREVIEW_FIELDS.filter(k => k in fields),
+        ...Object.keys(fields).filter(k => !PREVIEW_FIELDS.includes(k))
+      ];
+
+      orderedKeys.forEach(key => {
+        const display = formatValue(fields[key]);
         const row = document.createElement('div');
         row.className = 'field-row';
 
@@ -444,18 +384,6 @@
 
         const valEl = document.createElement('div');
         valEl.className = 'field-val';
-
-        let display = '';
-        if (val === null || val === undefined) {
-          display = '—';
-        } else if (Array.isArray(val)) {
-          display = val.join(', ');
-        } else if (typeof val === 'object') {
-          display = JSON.stringify(val, null, 2);
-        } else {
-          display = String(val);
-        }
-
         if (display.length > 120) valEl.classList.add('long');
         valEl.textContent = display;
 

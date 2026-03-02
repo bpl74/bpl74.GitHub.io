@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BPL74 Admin — Post Detail</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0f0f;
+      --surface: #181818;
+      --surface2: #1e1e1e;
+      --border: #2a2a2a;
+      --accent: #c8a96e;
+      --text: #e8e2d9;
+      --text-muted: #6b6560;
+      --empty: #3a3530;
+      --mono: 'DM Mono', monospace;
+      --serif: 'Playfair Display', serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: rgba(15,15,15,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+
+    .header-left { display: flex; align-items: center; gap: 1.25rem; }
+
+    .back-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .back-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .header-title { font-family: var(--serif); font-size: 1.3rem; color: var(--accent); }
+    .header-sub { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); }
+
+    .record-id-badge {
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.6rem;
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem;
+    }
+
+    /* ── FIELD GROUPS ── */
+    .section-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .fields-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      margin-bottom: 2rem;
+    }
+
+    .fields-grid.single-col {
+      grid-template-columns: 1fr;
+    }
+
+    .field-block {
+      background: var(--surface);
+      padding: 1.25rem 1.5rem;
+      animation: fadeUp 0.3s ease both;
+    }
+
+    .field-block.empty {
+      background: var(--bg);
+    }
+
+    .field-block.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .field-key {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .field-block.empty .field-key {
+      color: var(--empty);
+    }
+
+    .field-val {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .field-val.empty-val {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Long text fields get full width */
+    .field-block.long-text {
+      grid-column: 1 / -1;
+    }
+
+    /* ── STATES ── */
+    .state-msg { text-align: center; padding: 4rem 2rem; color: var(--text-muted); font-size: 0.8rem; letter-spacing: 0.1em; }
+
+    .loading-dots::after {
+      content: '...';
+      animation: dots 1.2s steps(4, end) infinite;
+    }
+
+    @keyframes dots {
+      0%, 100% { content: ''; }
+      25% { content: '.'; }
+      50% { content: '..'; }
+      75% { content: '...'; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Stagger field blocks */
+    .field-block:nth-child(1)  { animation-delay: 0.03s; }
+    .field-block:nth-child(2)  { animation-delay: 0.06s; }
+    .field-block:nth-child(3)  { animation-delay: 0.09s; }
+    .field-block:nth-child(4)  { animation-delay: 0.12s; }
+    .field-block:nth-child(5)  { animation-delay: 0.15s; }
+    .field-block:nth-child(6)  { animation-delay: 0.18s; }
+    .field-block:nth-child(n+7){ animation-delay: 0.21s; }
+
+    /* Approval status badge */
+    .status-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 0.25rem 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid;
+    }
+
+    .status-approved  { color: #7ecb8f; border-color: #7ecb8f; background: rgba(126,203,143,0.08); }
+    .status-pending   { color: #e0c875; border-color: #e0c875; background: rgba(224,200,117,0.08); }
+    .status-rejected  { color: #e07070; border-color: #e07070; background: rgba(224,112,112,0.08); }
+    .status-default   { color: var(--text-muted); border-color: var(--border); }
+
+    /* Media link */
+    .media-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.82rem;
+      border-bottom: 1px solid rgba(200,169,110,0.3);
+      transition: border-color 0.2s;
+    }
+    .media-link:hover { border-color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a href="index.html" class="back-btn">← Back</a>
+    <div>
+      <div class="header-title">BPL74</div>
+      <div class="header-sub">Post Detail</div>
+    </div>
+  </div>
+  <div class="record-id-badge" id="record-id-badge">Loading...</div>
+</header>
+
+<main>
+  <div id="content">
+    <div class="state-msg"><span class="loading-dots">Loading</span></div>
+  </div>
+</main>
+
+<script>
+  // ── CONFIG ──────────────────────────────────────────────
+  const WORKER_URL = 'https://combpl74.jmirando.workers.dev';
+  const TABLE_NAME = 'Posts';
+
+  // Fields to display, in order. All will show including empty ones.
+  const FIELDS = [
+    'app',
+    'format',
+    'pilar',
+    'IG Hook',
+    'IG Caption',
+    'IG Script',
+    'IG Hashtags',
+    'CTA',
+    'Media Link',
+    'Approval Status',
+    'FB Text',
+  ];
+
+  // Fields that are long-form text (get full width)
+  const LONG_TEXT_FIELDS = ['IG Hook', 'IG Caption', 'IG Script', 'IG Hashtags', 'FB Text'];
+  // ────────────────────────────────────────────────────────
+
+  const params = new URLSearchParams(window.location.search);
+  const recordId = params.get('id');
+  const adminPassword = sessionStorage.getItem('adminPassword');
+
+  if (!adminPassword) {
+    window.location.href = 'index.html';
+  } else if (!recordId) {
+    document.getElementById('content').innerHTML =
+      '<div class="state-msg">No record ID specified.</div>';
+  } else {
+    loadRecord();
+  }
+
+  async function loadRecord() {
+    try {
+      const res = await fetch(
+        `${WORKER_URL}?table=${encodeURIComponent(TABLE_NAME)}&id=${encodeURIComponent(recordId)}`,
+        { headers: { 'X-Admin-Password': adminPassword } }
+      );
+
+      if (res.status === 401) {
+        sessionStorage.removeItem('adminPassword');
+        window.location.href = 'index.html';
+        return;
+      }
+
+      const data = await res.json();
+      if (data.error) {
+        document.getElementById('content').innerHTML =
+          `<div class="state-msg">Error: ${data.error.message || 'Could not load record.'}</div>`;
+        return;
+      }
+
+      renderRecord(data);
+    } catch (e) {
+      document.getElementById('content').innerHTML =
+        '<div class="state-msg">Failed to load record. Check your connection.</div>';
+    }
+  }
+
+  function formatValue(key, val) {
+    if (val === null || val === undefined || val === '') return null;
+    if (Array.isArray(val)) return val.join(', ');
+    if (typeof val === 'object') return JSON.stringify(val, null, 2);
+    return String(val);
+  }
+
+  function renderRecord(record) {
+    document.getElementById('record-id-badge').textContent = record.id;
+    document.title = `BPL74 Admin — ${record.id}`;
+
+    const fields = record.fields || {};
+    const content = document.getElementById('content');
+
+    // Metadata section (short fields)
+    const metaFields = FIELDS.filter(f => !LONG_TEXT_FIELDS.includes(f));
+    const textFields = FIELDS.filter(f => LONG_TEXT_FIELDS.includes(f));
+
+    content.innerHTML = '';
+
+    // ── Meta grid ──
+    const metaLabel = document.createElement('div');
+    metaLabel.className = 'section-label';
+    metaLabel.textContent = 'Post Details';
+    content.appendChild(metaLabel);
+
+    const metaGrid = document.createElement('div');
+    metaGrid.className = 'fields-grid';
+
+    metaFields.forEach(key => {
+      const raw = fields[key];
+      const val = formatValue(key, raw);
+      const isEmpty = val === null;
+
+      const block = document.createElement('div');
+      block.className = 'field-block' + (isEmpty ? ' empty' : '');
+
+      const keyEl = document.createElement('div');
+      keyEl.className = 'field-key';
+      keyEl.textContent = key;
+      block.appendChild(keyEl);
+
+      const valEl = document.createElement('div');
+      valEl.className = 'field-val' + (isEmpty ? ' empty-val' : '');
+
+      if (isEmpty) {
+        valEl.textContent = '—';
+      } else if (key === 'Approval Status') {
+        const badge = document.createElement('span');
+        const statusLower = val.toLowerCase();
+        badge.className = 'status-badge ' +
+          (statusLower.includes('approv') ? 'status-approved' :
+           statusLower.includes('pend')   ? 'status-pending'  :
+           statusLower.includes('reject') ? 'status-rejected' : 'status-default');
+        badge.textContent = val;
+        valEl.appendChild(badge);
+      } else if (key === 'Media Link') {
+        const link = document.createElement('a');
+        link.className = 'media-link';
+        link.href = val;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = val;
+        valEl.appendChild(link);
+      } else {
+        valEl.textContent = val;
+      }
+
+      block.appendChild(valEl);
+      metaGrid.appendChild(block);
+    });
+
+    content.appendChild(metaGrid);
+
+    // ── Long text fields ──
+    const textLabel = document.createElement('div');
+    textLabel.className = 'section-label';
+    textLabel.textContent = 'Content';
+    content.appendChild(textLabel);
+
+    const textGrid = document.createElement('div');
+    textGrid.className = 'fields-grid single-col';
+
+    textFields.forEach(key => {
+      const raw = fields[key];
+      const val = formatValue(key, raw);
+      const isEmpty = val === null;
+
+      const block = document.createElement('div');
+      block.className = 'field-block long-text' + (isEmpty ? ' empty' : '');
+
+      const keyEl = document.createElement('div');
+      keyEl.className = 'field-key';
+      keyEl.textContent = key;
+      block.appendChild(keyEl);
+
+      const valEl = document.createElement('div');
+      valEl.className = 'field-val' + (isEmpty ? ' empty-val' : '');
+      valEl.textContent = isEmpty ? '—' : val;
+      block.appendChild(valEl);
+
+      textGrid.appendChild(block);
+    });
+
+    content.appendChild(textGrid);
+  }
+</script>
+</body>
+</html>
